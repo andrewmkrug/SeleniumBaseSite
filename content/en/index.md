@@ -1,0 +1,125 @@
+---
+title: "Home"
+date: 2018-10-20T15:04:02-05:00
+draft: true
+---
+
+# The Selenium Browser Automation Project
+
+Selenium is an umbrella project for a range of tools and libraries that enable and support the automation of web browsers.
+
+It provides extensions to emulate user interaction with browsers, a distribution server for scaling browser allocation, and the infrastructure for implementations of the [W3C WebDriver specification](//www.w3.org/TR/webdriver/) that lets you write interchangeable code for all major web browsers.
+
+This project is made possible by volunteer contributors who have put in thousands of hours of their own time, and made the source code [freely available](attr.html#license) for anyone to use, enjoy, and improve.
+
+Selenium brings together browser vendors, engineers, and enthusiasts to further an open discussion around automation of the web platform. The project organises [an annual conference](http://seleniumconf.com/) to teach and nurture the community.
+
+At the core of Selenium is [WebDriver](wd.html), an interface to write instruction sets that can be run interchangeably in many browsers. Here is one of the simplest instructions you can make:
+
+<!-- TODO(ato): We should find a better example.  Perhaps Todo list? -->
+```java
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+
+public class HelloSelenium {
+
+    public static void main(String[] args) {
+        WebDriver driver = new FirefoxDriver();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        try {
+            driver.get("http://google.com/ncr");
+            driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
+            WebElement firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h3>a")));
+            System.out.println(firstResult.getText());
+        } finally {
+            driver.quit();
+        }
+    }
+}
+```
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.expected_conditions import presence_of_element_located
+
+#This example requires Selenium WebDriver 3.13 or newer
+with webdriver.Firefox() as driver:
+    wait = WebDriverWait(driver, 10)
+    driver.get("http://google.com/ncr")
+    driver.find_element_by_name("q").send_keys("cheese" + Keys.RETURN)
+    first_result = wait.until(presence_of_element_located((By.CSS_SELECTOR, "h3>a")))
+    print(first_result.text)
+```    
+```cs
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
+
+namespace Selenium.Docs
+{
+    [TestClass]
+    public class HelloSelenium
+    {
+        private static IWebDriver driver;
+
+        [TestMethod]
+        public void Example()
+        {
+            driver = new FirefoxDriver();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            driver.Navigate().GoToUrl("http://www.google.com/ncr");
+            driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Return);
+            IWebElement firstResult = wait.Until(wd => wd.FindElement(By.CssSelector("h3>a")));
+            Console.WriteLine(firstResult.Text);
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            driver.Quit();
+        }
+    }
+}
+```
+```ruby
+require 'selenium-webdriver'
+
+driver = Selenium::WebDriver.for :firefox
+wait = Selenium::WebDriver::Wait.new(timeout: 10)
+
+begin
+  driver.get 'http://google.com'
+  driver.find_element(name: 'q').send_keys 'cheese', :return
+  first_result = wait.until { driver.find_element(css: 'h3>a') }
+  puts first_result.text
+ensure
+  driver.quit
+end
+```
+```javascript
+const {Builder, By, Key, until} = require('selenium-webdriver');
+
+(async function example() {
+    let driver = await new Builder().forBrowser('firefox').build();
+    try {
+        await driver.get('http://www.google.com/ncr');
+        await driver.findElement(By.name('q')).sendKeys('cheese', Key.RETURN);
+        let firstResult = await driver.wait(until.elementLocated(By.css('h3>a')),10000);
+        console.log(await firstResult.getText());
+    } finally {
+        await driver.quit();
+    }
+})();
+```
+
+See the [Quick Tour](quick.html) for a full explanation of what goes on behind the scenes when you run this code. You should continue on to the [narrative documentation](#narrative) to understand how you can [install](install.html) and successfully use Selenium as a test automation tool, and scaling simple tests like this to run in large, distributed environments on multiple browsers, on several different operating systems.

@@ -1,6 +1,4 @@
 baseURL = "/"
-languageCode = "en-us"
-title = "Selenium HQ"
 
 enableRobotsTXT = true
 disableAliases = true
@@ -31,3 +29,36 @@ baseName = "_headers"
 isPlainText = true
 notAlternative = true
 
+[languages]
+  [languages.en]
+    title = "Selenium HQ"
+    weight = 1
+    contentDir = "content/en"
+    languageName = "English"
+    [languages.en.params]
+      linkedin = "https://linkedin.com/whoever"
+  [languages.fr]
+    title = "Selenium QG"
+    weight = 2
+    contentDir = "content/fr"
+    languageName = "Français"
+    [languages.fr.params]
+      linkedin = "https://linkedin.com/fr/whoever"
+      [languages.fr.params.navigation]
+        help = "Aide"
+  [languages.es]
+    title = "Selenium Sede"
+    weight = 1
+    contentDir = "content/es"
+    languageName = "Español"
+    [languages.es.params]
+      linkedin = "https://linkedin.com/whoever"
+  [languages.de]
+    title = "Selenium QG"
+    weight = 2
+    contentDir = "content/de"
+    languageName = "Deutsche"
+    [languages.de.params]
+      linkedin = "https://linkedin.com/fr/whoever"
+      [languages.de.params.navigation]
+        help = "Aide"
