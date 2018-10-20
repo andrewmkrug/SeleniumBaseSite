@@ -1,6 +1,6 @@
 baseURL = "/"
-languageCode = "en-gb"
-title = "{TITLE}"
+languageCode = "en-us"
+title = "Selenium HQ"
 
 enableRobotsTXT = true
 disableAliases = true
